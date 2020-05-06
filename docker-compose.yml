@@ -1,0 +1,8 @@
+build:
+  image: node:8
+  working_dir: /code
+  volumes:
+    - .:/code
+  environment:
+    - AWS_ACCESS_KEY_ID=${ACCESS_KEY}
+    - AWS_SECRET_ACCESS_KEY=${SECRET_KEY}
