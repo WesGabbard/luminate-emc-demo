@@ -1,0 +1,26 @@
+{
+  "name": "lo-emc-scrapper",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "next",
+    "serve": "next start",
+    "build": "next build && next export -o dist",
+    "deploy": "yarn build; brb deploy --target s3 --bucket blackbaud-sites.com --prefix emc-api.blackbaud-sites.com",
+    "lint": "brb lint"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "constructicon": "^2.2.11",
+    "jsonfile": "5.0.0",
+    "lodash": "^4.17.15",
+    "minimal.css": "^1.0.1",
+    "next": "9.3.4",
+    "puppeteer": "^2.1.1",
+    "react": "16.13.1",
+    "react-dom": "16.13.1"
+  },
+  "devDependencies": {
+    "boiler-room-builder": "^4.2.1"
+  }
+}
