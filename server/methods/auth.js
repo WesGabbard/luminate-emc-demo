@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer')
+import { sendError } from '../lib/json'
 
 const Auth = async ({ username, password, domain }, nextUrl) => {
   const browser = await puppeteer.launch()
@@ -19,17 +20,11 @@ const Auth = async ({ username, password, domain }, nextUrl) => {
         page
       }
     } else {
-      console.log(page.url())
-      throw new Error(`Redirected to ${page.url()}`)
+      throw new Error(`Login failed - redirected to ${page.url()}`)
     }
   } catch (error) {
-    console.log('auth error', error)
     browser.close()
-    return {
-      error: {
-        message: 'Login Failed'
-      }
-    }
+    return sendError(error.message, { target: 'login' })
   }
 }
 

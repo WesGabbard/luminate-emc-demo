@@ -11,21 +11,7 @@ export default ({ query }, res) => {
       :
         Promise.reject(error ? error : 'An unexpected error occured, please try again later')
     )
-    .then(result =>
-      res.json({
-        data: {
-          ...result,
-          status: 'success'
-        }
-      })
-    )
-    .catch(result =>
-      res.json({
-        data: {
-          ...result,
-          status: 'fail'
-        }
-      })
-    )
+    .then(result => res.json({ data: { ...result }}))
+    .catch(error => res.json({ data: { ...error }}))
 }
 

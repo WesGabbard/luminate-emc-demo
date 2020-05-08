@@ -43,7 +43,7 @@ Updates to the Event Properties tab also take the following params:
 
 ```javascript
 params: {
-  targetField, // The field to update, this based of the inputs id attribute in the EMC
+  target, // The field to update, this based of the inputs id attribute in the EMC
   content // string of text to use for update
 }
 ```
