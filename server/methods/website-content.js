@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer')
 import { sendError, sendSuccess } from '../lib/json'
 
-const WebContent = async ({ content, domain, target }, page) => {
+const WebContent = async ({ content, target }, page) => {
   const pageProps = {
     timeout: 5000,
     iframe: '#eventmgr_website_preview',

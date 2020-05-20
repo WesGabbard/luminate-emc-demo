@@ -1,6 +1,7 @@
 const path = require("path");
 
 module.exports = {
+  target: "serverless",
   env: {
     BROWSERLESS: "ws://54.167.65.169:3000"
   },

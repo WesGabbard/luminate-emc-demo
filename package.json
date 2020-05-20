@@ -4,7 +4,7 @@
   "scripts": {
     "start": "next",
     "serve": "next start",
-    "build": "next build && next export -o dist",
+    "build": "next build",
     "deploy": "yarn build; brb deploy --target s3 --bucket blackbaud-sites.com --prefix emc-api.blackbaud-sites.com",
     "lint": "brb lint"
   },

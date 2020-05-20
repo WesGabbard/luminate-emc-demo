@@ -1,11 +1,8 @@
 import React from 'react'
 import App from 'next/app'
-import getConfig from 'next/config'
 import TraitsProvider from 'constructicon/traits-provider'
 import * as traits from '../lib/traits'
 import 'minimal.css'
-
-const { publicRuntimeConfig } = getConfig()
 
 class MyApp extends App {
   render() {
@@ -13,7 +10,7 @@ class MyApp extends App {
     return (
       <div>
         <TraitsProvider traits={traits}>
-          <Component {...publicRuntimeConfig} />
+          <Component />
         </TraitsProvider>
       </div>
     )
