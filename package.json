@@ -12,7 +12,7 @@
     "axios": "^0.19.2",
     "constructicon": "^2.2.11",
     "jsonfile": "5.0.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "minimal.css": "^1.0.1",
     "next": "9.3.4",
     "puppeteer": "^2.1.1",
