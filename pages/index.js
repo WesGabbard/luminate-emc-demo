@@ -1,38 +1,53 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
-import axios from "axios";
-
-import Container from 'constructicon/container'
+import { getAuthToken, getContent } from '../lib/api'
 import Heading from 'constructicon/heading'
 import LoginForm from '../components/LoginForm'
+import UpdateContentForm from '../components/UpdateContentForm'
+import RichText from 'constructicon/rich-text'
 import Section from 'constructicon/section'
 
-
 const Home = props => {
-  const [fetchedTitle, setFetchedTitle] = useState({})
-  const [loginResults, setLoginResults] = useState(null)
+  const [auth, setAuth] = useState(null)
+  const [content, setContent] = useState(null)
+  const [user, setUser] = useState(null)
+
   useEffect(() => {
     Promise.resolve()
-      .then(() => axios.get('http://localhost:3000/api/get-title?url=https://fundraising.qa.stjude.org/site/TR/Walk/Walk?fr_id=24014&pg=entry'))
-      .then(response => setFetchedTitle(response.data))
+      .then(() => getAuthToken())
+      .then(auth => {
+        setAuth(auth)
+        return getContent(auth, '[[S47:24014:fr_info:6:fr_html]]')
+      })
+      .then(({ preview }) => setContent(preview))
       .catch(error => Promise.reject(error))
   }, [])
+
+  const refreshContent = data => {
+    console.log(data, 'refresh')
+    getContent(auth, '[[S47:24014:fr_info:6:fr_html]]').then(({ preview }) => setContent(preview))
+  }
 
   return (
     <div className="container">
       <Head>
-        <title>EMC Scrapper</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>EMC Demo</title>
       </Head>
       <main>
-        <Section borderWidth={10} styles={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '100%', maxWidth: '30rem' }}>
+        <Section borderWidth={10} styles={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '100%', maxWidth: '40rem' }}>
 
-          <Heading>
-            Login to the EMC for ... <br />
-            {fetchedTitle && <span>{fetchedTitle.data}</span>}
-          </Heading>
-
-          <LoginForm />
+          {auth && !user && (
+            <>
+              <RichText children={'<h1>Login as a Event Manager for event 24014 in the qa env to update the website content below.</h1>'} />
+              <LoginForm auth={auth} onSuccess={data => setUser(data)} />
+            </>
+          )}
+          {user && (
+            <UpdateContentForm onUpdate={data => refreshContent(data)} />
+          )}
+          {content && (
+            <RichText children={content} />
+          )}
         </Section>
       </main>
     </div>

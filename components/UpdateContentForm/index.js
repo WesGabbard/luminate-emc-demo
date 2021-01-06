@@ -1,14 +1,19 @@
 import React, { useState } from 'react'
-import { login } from '../../lib/api'
+import { updateContent } from '../../lib/api'
 import Form from 'constructicon/form'
 import withForm from 'constructicon/with-form'
 import InputField from 'constructicon/input-field'
 import * as validators from 'constructicon/lib/validators'
 
-const LoginForm = ({ auth, form, onSuccess }) => {
+const UpdateContentForm = ({
+  form,
+  onUpdate,
+  ...props
+}) => {
   const [errors, setErrors] = useState([])
   const [status, setStatus] = useState(undefined)
-
+  //const [auth, setAuth] = useState(null)
+  console.log(props)
   const handleSubmit = e => {
     e.preventDefault()
     return form
@@ -16,13 +21,15 @@ const LoginForm = ({ auth, form, onSuccess }) => {
       .then(data =>
         Promise.resolve()
           .then(() => setStatus('fetching'))
-          .then(() => login(auth, data))
-          .then(({ data, status }) => {
-            setStatus(status)
-            return onSuccess(data.loginResponse)
+          .then(() => updateContent(data))
+          .then(response => {
+            console.log('testresponse', response)
+            setStatus(response.status)
+            onUpdate(response)
           })
           .catch(error => {
-            setStatus('failed')
+            console.log('test err', error)
+            setStatus(error.status)
             setErrors(!error.message ? ['An unexepected error occured'] : [error.message])
           })
       )
@@ -37,28 +44,20 @@ const LoginForm = ({ auth, form, onSuccess }) => {
       onSubmit={handleSubmit}
       noValidate
     >
-      <InputField {...form.fields.user_name} />
-      <InputField {...form.fields.password} />
+      <InputField {...form.fields.content} />
     </Form>
   )
 }
 
 const form = {
   fields: {
-    user_name: {
-      label: 'Username',
+    content: {
+      label: 'Content',
       validators: [
-        validators.required('Username is a required field'),
-      ]
-    },
-    password: {
-      label: 'Password',
-      type: 'password',
-      validators: [
-        validators.required('Password is a required field')
+        validators.required('Add html string for content update')
       ]
     }
   }
 }
 
-export default withForm(form)(LoginForm)
+export default withForm(form)(UpdateContentForm)
