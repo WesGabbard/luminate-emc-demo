@@ -7,7 +7,7 @@
     "build": "next build && next export -o dist"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "constructicon": "^2.2.11",
     "jsonfile": "5.0.0",
     "lodash": "^4.17.19",
