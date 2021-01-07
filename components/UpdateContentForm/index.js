@@ -5,15 +5,9 @@ import withForm from 'constructicon/with-form'
 import InputField from 'constructicon/input-field'
 import * as validators from 'constructicon/lib/validators'
 
-const UpdateContentForm = ({
-  form,
-  onUpdate,
-  ...props
-}) => {
+const UpdateContentForm = ({ form, onUpdate }) => {
+  const [status, setStatus] = useState(null)
   const [errors, setErrors] = useState([])
-  const [status, setStatus] = useState(undefined)
-  //const [auth, setAuth] = useState(null)
-  console.log(props)
   const handleSubmit = e => {
     e.preventDefault()
     return form
@@ -22,15 +16,12 @@ const UpdateContentForm = ({
         Promise.resolve()
           .then(() => setStatus('fetching'))
           .then(() => updateContent(data))
-          .then(response => {
-            console.log('testresponse', response)
-            setStatus(response.status)
-            onUpdate(response)
-          })
+          .then(response => onUpdate(response))
+          .then(() => setStatus('fetched'))
           .catch(error => {
-            console.log('test err', error)
-            setStatus(error.status)
-            setErrors(!error.message ? ['An unexepected error occured'] : [error.message])
+            setStatus('failed')
+            setErrors(!error.message ? [{ message: 'An unexepected error occured' }] : [{ message: error.message }])
+            return Promise.reject(error)
           })
       )
   }

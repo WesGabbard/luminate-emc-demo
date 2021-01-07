@@ -23,7 +23,7 @@ const LoginForm = ({ auth, form, onSuccess }) => {
           })
           .catch(error => {
             setStatus('failed')
-            setErrors(!error.message ? ['An unexepected error occured'] : [error.message])
+            setErrors(!error.message ? [{ message: 'An unexepected error occured' }] : [{ message: error.message }])
           })
       )
   }
