@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { getAuthToken, getContent, logout } from '../lib/api'
 import Button from 'constructicon/button'
 import ButtonGroup from 'constructicon/button-group'
+import Heading from 'constructicon/heading'
 import LoginForm from '../components/LoginForm'
 import UpdateContentForm from '../components/UpdateContentForm'
 import RichText from 'constructicon/rich-text'
@@ -41,7 +42,7 @@ const Home = props => {
         <title>EMC Demo</title>
       </Head>
       <main>
-        <Section borderWidth={10} styles={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '100%', maxWidth: '40rem' }}>
+        <Section borderWidth={10} borderColor='primary' styles={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '100%', maxWidth: '40rem' }}>
           <ButtonGroup styles={{ marginBottom: '1rem' }}>
             {user && (
               <Button
@@ -56,20 +57,24 @@ const Home = props => {
               />
             )}
           </ButtonGroup>
-          {token && !user && (
-            <>
-              <RichText children={'<p>Login as a Event Manager for event 24014 in the qa env.</p>'} />
-              <LoginForm auth={token} onSuccess={data => setUser(data)} />
-            </>
-          )}
-          {user && auth && (
-            <UpdateContentForm onUpdate={() => refreshContent()} />
-          )}
+          <Section borderWidth={5} borderColor='tertiary' styles={{ borderLeft: 0, borderRight: 0, borderTop: 0, marginBottom: '1rem' }} spacing={0}>
+            {token && !user && (
+              <>
+                <RichText children={'<p>Login as a Event Manager for event 24014 in the qa env to make updates.</p>'} />
+                <LoginForm auth={token} onSuccess={data => setUser(data)} />
+              </>
+            )}
+            {user && auth && (
+              <UpdateContentForm content={content} onUpdate={() => refreshContent()} />
+            )}
+          </Section>
           {content && (
-            <Section borderWidth={4} borderColor='primary'>
-              <Heading children='Website Content' />
-              <RichText children={content} />
-            </Section>
+            <>
+              <Heading color='tertiary' children='Event Website Content from EMC' />
+              <Section background='tertiary' foreground='light'>
+                <RichText children={content} />
+              </Section>
+            </>
           )}
         </Section>
       </main>

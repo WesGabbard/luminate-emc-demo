@@ -1222,6 +1222,14 @@
   dependencies:
     mkdirp "^1.0.4"
 
+"@tinymce/tinymce-react@^3.8.4":
+  version "3.8.4"
+  resolved "https://registry.yarnpkg.com/@tinymce/tinymce-react/-/tinymce-react-3.8.4.tgz#c652f23735bf63812ce2077a06682fe335b24fee"
+  integrity sha512-wk9UTyuopeSs2UPxfMY2t4ZK4094aH7bfbHz+kAoHQ/lAQB01qojM9Khsg9dGwlMg8ZmUcvQdoiAOwYNUztKww==
+  dependencies:
+    prop-types "^15.6.2"
+    tinymce "^5.6.2"
+
 "@types/json-schema@^7.0.5":
   version "7.0.6"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.6.tgz#f4c7ec43e81b319a9815115031709f26987891f0"
@@ -5108,6 +5116,11 @@ timers-browserify@^2.0.4:
   integrity sha512-60aV6sgJ5YEbzUdn9c8kYGIqOubPoUdqQCul3SBAsRCZ40s6Y5cMcrW4dt3/k/EsbLVJNl9n6Vz3fTc+k2GeKQ==
   dependencies:
     setimmediate "^1.0.4"
+
+tinymce@^5.6.2:
+  version "5.6.2"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.6.2.tgz#4c20c22e328c5d0baab204928dbc2b0ecbed18b4"
+  integrity sha512-z7zvM5seOPiW86/vqf08kStwW5Zs5U9oQfuqh2rTj4jEcT2QzxT0v72i2zw3W6rbTLldkAej6edFZphj5ee5zg==
 
 to-arraybuffer@^1.0.0:
   version "1.0.1"
